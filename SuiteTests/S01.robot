@@ -5,7 +5,7 @@ Suite Setup   Suite Setup Base
 
 
 *** Variables ***
-${DOWNLOAD_DIR}   C:\\Users\\JGuillou\\Downloads\\    # Put Your Path Here
+${DOWNLOAD_DIR}   # Put Your Path Here
 ${URL}            https://scrumguides.org/
 ${CHOICE}         Option1
 ${NAME_FILE}      2020-Scrum-Guide-US.pdf
