@@ -14,8 +14,23 @@ Launch Chrome Browser With Download Settings
   ...                          download.default_directory=${DOWNLOAD_DIR}
   ...                          safebrowsing.disable_download_protection=True
   ...                          download.extensions_to_open=xml
+# ...                          download.extensions_to_open=applications/pdf
+# ...                          acceptDownloads=True
+# ...                          exceptions.automatic_downloads=True
+# ...                          download.downloadPath=downloadPath
+# ...                          download.directory_upgrade=True
+# ...                          profile.default_content_settings.popups=0
+# ...                          pdfjs.disabled=True
   ${chrome_options}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
   Call Method  ${chrome_options}  add_experimental_option  prefs  ${prefs}
+# Call Method    ${chrome_options}  add_argument  --auto-open-devtools-for-tabs
+# Call Method    ${chrome_options}  add_argument  --no-sandbox
+# Call Method    ${chrome_options}  add_argument  --start--maximized
+# Call Method    ${chrome_options}  add_argument  --ignore-certificate-errors
+# Call Method    ${chrome_options}  add_argument  --window-size\=1920, 1080
+# Call Method    ${chrome_options}  add_argument  --disable-dev-shm-usage
+# Call Method    ${chrome_options}  add_argument  --disable-gpu
+# Call Method    ${chrome_options}  add_argument  --headless
 
   IF  "${CHOICE}"=="Option1"  # Open Browser
     Open Browser  ${URL}  Chrome  options=${chrome_options}
@@ -26,7 +41,7 @@ Launch Chrome Browser With Download Settings
     Create Webdriver  Chrome  options=${chrome_options}
     Go to  ${URL}
     Maximize Browser Window
-  END 
+  END
 
 Download scrumguides English
   ${Source}  Log Source    loglevel=INFO
