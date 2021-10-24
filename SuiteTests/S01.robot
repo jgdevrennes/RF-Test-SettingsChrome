@@ -6,13 +6,13 @@ Resource            ..//Resources//Base.resource
 Suite Setup         Suite Setup Base
 
 *** Variables ***
-${DOWNLOAD_DIR}         # Put Your Path Here
+${DOWNLOAD_DIR}         ${CURDIR}//Download    # Put Your Path Here
 ${URL}                  https://scrumguides.org/
 ${NAME_FILE}            2020-Scrum-Guide-US.pdf
 ${CHOICE}               OpenBrowser
-${HEADLESS_CHROME}      True
-${CHROME_PRIVATE}       True
-${DEVTOOLS_CHROME}      True
+${HEADLESS_CHROME}      False  # True
+${CHROME_PRIVATE}       False  # True
+${DEVTOOLS_CHROME}      False  # True
 
 *** Test Cases ***
 Download Pdf With Chrome

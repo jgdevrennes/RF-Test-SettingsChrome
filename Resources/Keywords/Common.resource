@@ -28,6 +28,8 @@ Launch Chrome Browser
         Call Method    ${chrome_options}    add_argument    --disable-gpu
         Call Method    ${chrome_options}    add_argument    --headless
         Call Method    ${chrome_options}    add_argument    --start--maximized
+        Call Method    ${chrome_options}    add_argument    --window-size\=1800,1400
+        Call Method    ${chrome_options}    add_argument    --disable-dev-shm-usage
     END
     IF    "${HEADLESS_CHROME}"=="False"
         IF    "${DEVTOOLS_CHROME}"=="True"
