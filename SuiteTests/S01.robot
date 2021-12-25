@@ -16,9 +16,11 @@ ${DEVTOOLS_CHROME}      False  # True
 
 *** Test Cases ***
 Download Pdf With Chrome
-    [Setup]  PathNormalizer  ${DOWNLOAD_DIR}
+    [Setup]  Path Normalizer  ${DOWNLOAD_DIR}
+
     Launch Chrome Browser    ${URL}    ${DOWNLOAD_DIR}    ${CHOICE}
     Verify Page Download the official Scrum Guide PDF in English
     Download scrumguides English
     Verify File Should Exist In Downloading Folder    ${DOWNLOAD_DIR}    ${NAME_FILE}
-    [Teardown]    Close All Browsers
+
+    [Teardown]    Close All Browsers 

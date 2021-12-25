@@ -1,4 +1,4 @@
-## Settings Chrome to automatically donwload PDF
+## Settings Chrome to automatically donwload Files txt, csv, pdf, xlsx and docx
 
 ### Requirements
 

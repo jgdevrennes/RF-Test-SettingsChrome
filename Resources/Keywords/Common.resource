@@ -2,14 +2,14 @@
 Documentation       Keywords Common
 
 *** Keywords ***
-PathNormalizer
+Path Normalizer
     [Documentation]  Normalize Path
     [Arguments]    ${PATH}
     ${DOWNLOAD_DIR}  OperatingSystem.Normalize Path  ${PATH}
     Set Test Variable  ${DOWNLOAD_DIR}
 
 Launch Chrome Browser
-    [Documentation]    Settings to download PDF with Chrome on mode view 
+    [Documentation]    Settings to download PDF with Chrome on mode view
     [Arguments]    ${URL}    ${DOWNLOAD_DIR}    ${CHOICE}=OpenBrowser
     ${profile}  Create dictionary    enabled=${False}  name=chrome PDF Viewer
     ${list profile}  Create list  ${profile}
@@ -19,13 +19,6 @@ Launch Chrome Browser
     ...    plugins.plugins_disabled=chrome PDF Viewer
     ...    download.default_directory=${DOWNLOAD_DIR}
     ...    download.prompt_for_download=${False}
-    # ...    profile.default_content_settings.popups=0
-    # ...    download.directory_upgrade=true
-    # ...    safebrowsing.enabled=${True}
-    # ...    download.extensions_to_open=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-    # ...    profile.default_content_setting_values.automatic_downloads=${1}
-    # ...    Browser.setDownloadBehavior=allow
-    # ...    downloadPath=${DOWNLOAD_DIR}
     Log  ${prefs}
     ${chrome_options}  Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
     Call Method  ${chrome_options}  add_experimental_option    prefs  ${prefs}
@@ -73,3 +66,9 @@ Verify File Should Exist In Downloading Folder
     [Arguments]    ${DOWNLOAD_DIR}    ${NAME_FILE}
     Sleep    2 seconds
     OperatingSystem.File Should Exist    ${DOWNLOAD_DIR}\\${NAME_FILE}
+
+Download Files
+    [Arguments]    ${locator}
+    Sleep  1
+    SeleniumLibrary.Click Element  ${locator}
+    Sleep  1
