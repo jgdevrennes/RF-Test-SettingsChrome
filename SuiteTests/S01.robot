@@ -16,6 +16,7 @@ ${DEVTOOLS_CHROME}      False  # True
 
 *** Test Cases ***
 Download Pdf With Chrome
+    [Setup]  PathNormalizer  ${DOWNLOAD_DIR}
     Launch Chrome Browser    ${URL}    ${DOWNLOAD_DIR}    ${CHOICE}
     Verify Page Download the official Scrum Guide PDF in English
     Download scrumguides English

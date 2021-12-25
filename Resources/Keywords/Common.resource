@@ -2,34 +2,43 @@
 Documentation       Keywords Common
 
 *** Keywords ***
+PathNormalizer
+    [Documentation]  Normalize Path
+    [Arguments]    ${PATH}
+    ${DOWNLOAD_DIR}  OperatingSystem.Normalize Path  ${PATH}
+    Set Test Variable  ${DOWNLOAD_DIR}
+
 Launch Chrome Browser
-    [Documentation]    Settings to download PDF with Chrome on mode view (ko on mode headless)
+    [Documentation]    Settings to download PDF with Chrome on mode view 
     [Arguments]    ${URL}    ${DOWNLOAD_DIR}    ${CHOICE}=OpenBrowser
-    ${dict_profile}    Create dictionary    enabled=False    name=Chrome PDF Viewer
-    ${list_profile}    Create list    ${dict_profile}
-    ${prefs}    Create Dictionary    plugins.plugins_list=${list_profile}
-    ...    plugins.always_open_pdf_externally=True
-    ...    plugins.plugins_disabled=Chrome PDF Viewer
+    ${profile}  Create dictionary    enabled=${False}  name=chrome PDF Viewer
+    ${list profile}  Create list  ${profile}
+    ${prefs}  Create Dictionary
+    ...    plugins.plugins_list=${list profile}
+    ...    plugins.always_open_pdf_externally=${True}
+    ...    plugins.plugins_disabled=chrome PDF Viewer
     ...    download.default_directory=${DOWNLOAD_DIR}
-    # ...    download.prompt_for_download=${False}
-    # ...    safebrowsing.disable_download_protection=True
-    # ...    download.extensions_to_open=xml
-    # ...    download.extensions_to_open=applications/pdf
-    # ...    acceptDownloads=True
-    # ...    exceptions.automatic_downloads=True
-    # ...    download.downloadPath=downloadPath
-    # ...    download.directory_upgrade=True
+    ...    download.prompt_for_download=${False}
     # ...    profile.default_content_settings.popups=0
-    # ...    pdfjs.disabled=True
-    ${chrome_options}    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-    Call Method    ${chrome_options}    add_experimental_option    prefs    ${prefs}
-    IF    "${HEADLESS_CHROME}"=="True"
-        Call Method    ${chrome_options}    add_argument    --no-sandbox
-        Call Method    ${chrome_options}    add_argument    --disable-gpu
-        Call Method    ${chrome_options}    add_argument    --headless
-        Call Method    ${chrome_options}    add_argument    --start--maximized
-        Call Method    ${chrome_options}    add_argument    --window-size\=1800,1400
-        Call Method    ${chrome_options}    add_argument    --disable-dev-shm-usage
+    # ...    download.directory_upgrade=true
+    # ...    safebrowsing.enabled=${True}
+    # ...    download.extensions_to_open=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    # ...    profile.default_content_setting_values.automatic_downloads=${1}
+    # ...    Browser.setDownloadBehavior=allow
+    # ...    downloadPath=${DOWNLOAD_DIR}
+    Log  ${prefs}
+    ${chrome_options}  Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    Call Method  ${chrome_options}  add_experimental_option    prefs  ${prefs}
+    IF  '${HEADLESS_CHROME}'=='True'
+        Call Method  ${chrome_options}  add_argument    --no-sandbox
+        Call Method  ${chrome_options}  add_argument    --disable-gpu
+        Call Method  ${chrome_options}  add_argument    --headless
+        Call Method  ${chrome_options}  add_argument    --start--maximized
+        Call Method  ${chrome_options}  add_argument    --window-size\=1800,1400
+        Call Method  ${chrome_options}  add_argument    --disable-dev-shm-usage
+        Call Method  ${chrome_options}  add_argument    --disable-software-rasterizer
+        Call Method  ${chrome_options}  add_argument    --ignore-certificate-errors
+        Call Method  ${chrome_options}  add_argument    --disable-extensions
     END
     IF    "${HEADLESS_CHROME}"=="False"
         IF    "${DEVTOOLS_CHROME}"=="True"
@@ -39,11 +48,6 @@ Launch Chrome Browser
     IF    "${CHROME_PRIVATE}"=="True"
         Call Method    ${chrome_options}    add_argument    --incognito
     END
-
-    # Call Method    ${chrome_options}    add_argument    --start--maximized
-    # Call Method    ${chrome_options}    add_argument    --ignore-certificate-errors
-    # Call Method    ${chrome_options}    add_argument    --window-size\=1920, 1080
-    # Call Method    ${chrome_options}    add_argument    --disable-dev-shm-usage
 
     IF    "${CHOICE}"=="OpenBrowser"
         Open Browser    ${URL}    Chrome    options=${chrome_options}
@@ -58,7 +62,7 @@ Launch Chrome Browser
 
 Download scrumguides English
     ${Source}    Log Source    loglevel=INFO
-    SeleniumLibrary.Click Element    ​//a[contains(., 'Download (English)')]
+    SeleniumLibrary.Click link    //a[contains(.,"Download (English)")]
 
 Verify Page ${TEXTE}
     [Documentation]    Verify h1 page
