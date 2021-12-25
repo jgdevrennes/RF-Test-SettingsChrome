@@ -1,4 +1,4 @@
-## Settings Chrome to donwload PDF
+## Settings Chrome to automatically donwload PDF
 
 ### Requirements
 
